@@ -103,3 +103,117 @@ model Location {
   destinationId String      @unique
   destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
 }
+
+// ==========================================
+// 4. SUPPORTING LOCAL ECONOMY (SPRINT 4)
+// ==========================================
+
+model Culinary {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String        @db.Text
+  address     String?
+  openHours   String?
+  status      PublishStatus @default(DRAFT)
+  
+  images      CulinaryImage[]
+  menus       CulinaryMenu[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model CulinaryImage {
+  id          String    @id @default(cuid())
+  url         String
+  isPrimary   Boolean   @default(false)
+  culinaryId  String
+  culinary    Culinary  @relation(fields: [culinaryId], references: [id], onDelete: Cascade)
+}
+
+model CulinaryMenu {
+  id          String    @id @default(cuid())
+  name        String
+  price       Decimal?
+  culinaryId  String
+  culinary    Culinary  @relation(fields: [culinaryId], references: [id], onDelete: Cascade)
+}
+
+model UMKM {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String        @db.Text
+  ownerName   String?
+  contact     String?
+  address     String?
+  status      PublishStatus @default(DRAFT)
+  
+  images      UMKMImage[]
+  products    UMKMProduct[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model UMKMImage {
+  id          String    @id @default(cuid())
+  url         String
+  isPrimary   Boolean   @default(false)
+  umkmId      String
+  umkm        UMKM      @relation(fields: [umkmId], references: [id], onDelete: Cascade)
+}
+
+model UMKMProduct {
+  id          String    @id @default(cuid())
+  name        String
+  price       Decimal?
+  umkmId      String
+  umkm        UMKM      @relation(fields: [umkmId], references: [id], onDelete: Cascade)
+}
+
+model Accommodation {
+  id            String        @id @default(cuid())
+  name          String
+  slug          String        @unique
+  description   String        @db.Text
+  address       String?
+  pricePerNight Decimal?
+  contact       String?
+  status        PublishStatus @default(DRAFT)
+  
+  images        AccommodationImage[]
+  facilities    AccommodationFacility[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model AccommodationImage {
+  id              String         @id @default(cuid())
+  url             String
+  isPrimary       Boolean        @default(false)
+  accommodationId String
+  accommodation   Accommodation  @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
+}
+
+model AccommodationFacility {
+  id              String         @id @default(cuid())
+  name            String
+  accommodationId String
+  accommodation   Accommodation  @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
+}
+
+model Activity {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String        @db.Text
+  price       Decimal?
+  duration    String?
+  status      PublishStatus @default(DRAFT)
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
