@@ -1,7 +1,15 @@
 import Link from "next/link";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import { LayoutDashboard, Map, Store, Calendar, BookOpen, GraduationCap, Settings, LogOut } from "lucide-react";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  
+  if (!session?.user) {
+    redirect("/admin/login");
+  }
+
   const menuItems = [
     { icon: LayoutDashboard, label: "Overview", href: "/admin" },
     { icon: Map, label: "Destinasi Wisata", href: "/admin/wisata" },
@@ -36,7 +44,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </nav>
         
         <div className="p-4 border-t border-slate-800 mt-auto">
-          <Link href="/admin/login" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-900/30 text-red-400 hover:text-red-300 transition-colors">
+          <Link href="/api/auth/signout" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-900/30 text-red-400 hover:text-red-300 transition-colors">
             <LogOut className="w-5 h-5 shrink-0" />
             <span className="font-medium text-sm">Keluar</span>
           </Link>
@@ -50,11 +58,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <h1 className="text-lg font-semibold text-slate-800">Dashboard Pengelola</h1>
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-bold text-slate-800">Admin Desa</p>
-              <p className="text-xs text-slate-500">Super Admin</p>
+              <p className="text-sm font-bold text-slate-800">{session.user.name || "Admin Desa"}</p>
+              <p className="text-xs text-slate-500">{session.user.email}</p>
             </div>
             <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-              AD
+              {session.user.name ? session.user.name.charAt(0).toUpperCase() : "A"}
             </div>
           </div>
         </header>

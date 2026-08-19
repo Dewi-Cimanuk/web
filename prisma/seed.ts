@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
@@ -8,7 +9,23 @@ const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log('Seeding database...');
+
+  // 0. Admin User (Aman, mengambil dari .env)
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@cimanuk.desa.id';
+  const adminPasswordText = process.env.ADMIN_PASSWORD || 'cimanuk2026';
+  const adminPassword = await bcrypt.hash(adminPasswordText, 10);
   
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {},
+    create: {
+      email: adminEmail,
+      name: 'Admin Cimanuk',
+      password: adminPassword,
+      role: 'SUPER_ADMIN'
+    }
+  });
+
   // 1. Kategori
   const catAlam = await prisma.category.upsert({ where: { slug: 'alam' }, update: {}, create: { name: 'Alam', slug: 'alam' } });
   const catEdukasi = await prisma.category.upsert({ where: { slug: 'edukasi' }, update: {}, create: { name: 'Edukasi', slug: 'edukasi' } });
