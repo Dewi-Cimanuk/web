@@ -88,7 +88,7 @@ export default async function KKNDetailPage({ params }: { params: Promise<{ slug
                       <CheckCircle2 className="w-4 h-4 mr-2 text-secondary" /> Luaran (Output)
                     </h4>
                     <ul className="space-y-2">
-                      {wp.outputs.map((out, i) => (
+                      {wp.outputs.map((out: any, i: number) => (
                         <li key={i} className="flex items-start text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
                            <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 mr-3 shrink-0" />
                            {out}
@@ -103,7 +103,7 @@ export default async function KKNDetailPage({ params }: { params: Promise<{ slug
                       <Zap className="w-4 h-4 mr-2 text-info" /> Dampak (Impact)
                     </h4>
                     <ul className="space-y-2">
-                      {wp.impacts.map((imp, i) => (
+                      {wp.impacts.map((imp: any, i: number) => (
                         <li key={i} className="flex items-start text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
                            <span className="w-1.5 h-1.5 bg-info rounded-full mt-2 mr-3 shrink-0" />
                            {imp}
@@ -118,7 +118,7 @@ export default async function KKNDetailPage({ params }: { params: Promise<{ slug
                       <Lightbulb className="w-4 h-4 mr-2" /> Rekomendasi Berkelanjutan
                     </h4>
                     <div className="space-y-3">
-                      {wp.recommendations.map((rec, i) => (
+                      {wp.recommendations.map((rec: any, i: number) => (
                         <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                           <span className="inline-block px-2 py-1 bg-slate-100 text-xs font-bold text-slate-600 rounded mb-2">
                             Untuk: {rec.target}
