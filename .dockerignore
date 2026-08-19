@@ -1,0 +1,14 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.env*
+! .env.example
+memory-bank
+AGENTS.md
+CLAUDE.md
+.claude
+.gemini

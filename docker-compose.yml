@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: cimanuk_db
+    restart: always
+    environment:
+      POSTGRES_USER: cimanuk_admin
+      POSTGRES_PASSWORD: rahasia123
+      POSTGRES_DB: cimanuk_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cimanuk_web
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-cimanuk_admin}:${POSTGRES_PASSWORD:-rahasia123}@db:5432/${POSTGRES_DB:-cimanuk_db}?schema=public
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-supersecret_jwt_cimanuk}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+    depends_on:
+      - db
+    # Jika perlu menjalankan prisma db push secara otomatis saat start,
+    # kita bisa mengubah CMD di Dockerfile, namun umumnya dijalankan manual dari host.
+
+volumes:
+  pgdata:

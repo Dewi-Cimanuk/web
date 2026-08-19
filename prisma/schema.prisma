@@ -7,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ==========================================
@@ -217,3 +216,123 @@ model Activity {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
+
+// ==========================================
+// 5. CONTENT, EVENTS, & ARTICLES (SPRINT 5)
+// ==========================================
+
+model Event {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  description String        @db.Text
+  startDate   DateTime
+  endDate     DateTime?
+  location    String?
+  image       String?
+  status      PublishStatus @default(DRAFT)
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Article {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  content     String        @db.Text
+  excerpt     String?       @db.Text
+  image       String?
+  authorName  String?
+  status      PublishStatus @default(DRAFT)
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Gallery {
+  id          String        @id @default(cuid())
+  title       String?
+  url         String
+  caption     String?
+  status      PublishStatus @default(DRAFT)
+  
+  createdAt   DateTime      @default(now())
+}
+
+// ==========================================
+// 6. KKN KNOWLEDGE MANAGEMENT (SPRINT 6)
+// ==========================================
+
+model Institution {
+  id          String       @id @default(cuid())
+  name        String
+  logo        String?
+  kknPrograms KKNProgram[]
+}
+
+model KKNProgram {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  batch          String?       
+  year           Int
+  description    String        @db.Text
+  supervisorName String?       
+  
+  institutionId  String
+  institution    Institution   @relation(fields: [institutionId], references: [id])
+  
+  members        KKNMember[]
+  workPrograms   WorkProgram[]
+  
+  status         PublishStatus @default(DRAFT)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model KKNMember {
+  id           String     @id @default(cuid())
+  name         String
+  role         String?    
+  faculty      String?
+  kknProgramId String
+  kknProgram   KKNProgram @relation(fields: [kknProgramId], references: [id], onDelete: Cascade)
+}
+
+model WorkProgram {
+  id             String          @id @default(cuid())
+  title          String
+  description    String          @db.Text
+  
+  kknProgramId   String
+  kknProgram     KKNProgram      @relation(fields: [kknProgramId], references: [id], onDelete: Cascade)
+  
+  outputs        ProgramOutput[]
+  impacts        ProgramImpact[]
+  recommendations ProgramRecommendation[]
+}
+
+model ProgramOutput {
+  id            String      @id @default(cuid())
+  description   String      @db.Text
+  url           String?     
+  workProgramId String
+  workProgram   WorkProgram @relation(fields: [workProgramId], references: [id], onDelete: Cascade)
+}
+
+model ProgramImpact {
+  id            String      @id @default(cuid())
+  description   String      @db.Text
+  workProgramId String
+  workProgram   WorkProgram @relation(fields: [workProgramId], references: [id], onDelete: Cascade)
+}
+
+model ProgramRecommendation {
+  id            String      @id @default(cuid())
+  description   String      @db.Text
+  target        String?     
+  workProgramId String
+  workProgram   WorkProgram @relation(fields: [workProgramId], references: [id], onDelete: Cascade)
+}
+
