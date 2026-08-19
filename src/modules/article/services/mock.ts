@@ -1,13 +1,3 @@
-export type ArticleItem = {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  authorName: string;
-  createdAt: string;
-};
 
 import prisma from "@/lib/prisma";
 

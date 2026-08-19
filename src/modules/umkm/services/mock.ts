@@ -1,13 +1,3 @@
-export type UMKMItem = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  ownerName: string;
-  address: string;
-  images: { url: string; isPrimary: boolean }[];
-  products: { name: string; price: number }[];
-};
 
 import prisma from "@/lib/prisma";
 

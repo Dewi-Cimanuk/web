@@ -1,13 +1,3 @@
-export type CulinaryItem = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  address: string;
-  openHours: string;
-  images: { url: string; isPrimary: boolean }[];
-  menus: { name: string; price: number }[];
-};
 
 import prisma from "@/lib/prisma";
 

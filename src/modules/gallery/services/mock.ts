@@ -1,9 +1,3 @@
-export type GalleryItem = {
-  id: string;
-  url: string;
-  caption?: string;
-  createdAt: string;
-};
 
 import prisma from "@/lib/prisma";
 

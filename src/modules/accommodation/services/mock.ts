@@ -1,14 +1,3 @@
-export type AccommodationItem = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  address: string;
-  pricePerNight: number;
-  contact: string;
-  images: { url: string; isPrimary: boolean }[];
-  facilities: { name: string }[];
-};
 
 import prisma from "@/lib/prisma";
 

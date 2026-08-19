@@ -1,11 +1,3 @@
-export type ActivityItem = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  duration: string;
-};
 
 import prisma from "@/lib/prisma";
 
