@@ -87,7 +87,7 @@ export default async function WisataPage(props: Props) {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {destinations.map((dest) => (
+              {destinations.map((dest: any) => (
                 <Link href={`/wisata/${dest.slug}`} key={dest.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 h-full">
                   <div className="relative h-56 w-full overflow-hidden">
                     {dest.images[0]?.url ? (

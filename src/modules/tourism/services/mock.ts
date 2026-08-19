@@ -40,7 +40,7 @@ export async function getDestinations(search?: string, category?: string) {
     }
   });
 
-  return data.map(d => ({
+  return data.map((d: any) => ({
     id: d.id,
     name: d.name,
     slug: d.slug,
@@ -48,9 +48,9 @@ export async function getDestinations(search?: string, category?: string) {
     category: { id: d.category.id, name: d.category.name },
     priceTicket: Number(d.priceTicket) || 0,
     openHours: d.openHours || "",
-    images: d.images.map(img => ({ url: img.url, isPrimary: img.isPrimary })),
+    images: d.images.map((img: any) => ({ url: img.url, isPrimary: img.isPrimary })),
     location: { address: d.location?.address || "", googleMapsUrl: d.location?.googleMapsUrl || "" },
-    facilities: d.facilities.map(f => ({ name: f.name, icon: f.icon || "" }))
+    facilities: d.facilities.map((f: any) => ({ name: f.name, icon: f.icon || "" }))
   }));
 }
 
@@ -75,8 +75,8 @@ export async function getDestinationBySlug(slug: string) {
     category: { id: d.category.id, name: d.category.name },
     priceTicket: Number(d.priceTicket) || 0,
     openHours: d.openHours || "",
-    images: d.images.map(img => ({ url: img.url, isPrimary: img.isPrimary })),
+    images: d.images.map((img: any) => ({ url: img.url, isPrimary: img.isPrimary })),
     location: { address: d.location?.address || "", googleMapsUrl: d.location?.googleMapsUrl || "" },
-    facilities: d.facilities.map(f => ({ name: f.name, icon: f.icon || "" }))
+    facilities: d.facilities.map((f: any) => ({ name: f.name, icon: f.icon || "" }))
   };
 }

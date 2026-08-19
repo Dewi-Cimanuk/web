@@ -85,7 +85,7 @@ export default async function WisataDetailPage({ params }: { params: Promise<{ s
             <section className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
               <h2 className="text-2xl font-bold text-foreground mb-6">Fasilitas Tersedia</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {destination.facilities.map((fac, idx) => (
+                {destination.facilities.map((fac: any, idx: number) => (
                   <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
                     <CheckCircle2 className="w-5 h-5 text-secondary shrink-0" />
                     <span className="font-medium text-foreground text-sm">{fac.name}</span>

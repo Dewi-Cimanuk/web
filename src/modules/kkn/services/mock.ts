@@ -49,7 +49,7 @@ export async function getKKNList(search?: string) {
     }
   });
 
-  return data.map(k => ({
+  return data.map((k: any) => ({
     id: k.id,
     title: k.title,
     slug: k.slug,
@@ -58,14 +58,14 @@ export async function getKKNList(search?: string) {
     description: k.description,
     supervisorName: k.supervisorName || "",
     institution: { name: k.institution.name, logo: k.institution.logo || undefined },
-    members: k.members.map(m => ({ name: m.name, role: m.role || "", faculty: m.faculty || "" })),
-    workPrograms: k.workPrograms.map(wp => ({
+    members: k.members.map((m: any) => ({ name: m.name, role: m.role || "", faculty: m.faculty || "" })),
+    workPrograms: k.workPrograms.map((wp: any) => ({
       id: wp.id,
       title: wp.title,
       description: wp.description,
-      outputs: wp.outputs.map(o => o.description),
-      impacts: wp.impacts.map(i => i.description),
-      recommendations: wp.recommendations.map(r => ({ target: r.target || "Umum", description: r.description }))
+      outputs: wp.outputs.map((o: any) => o.description),
+      impacts: wp.impacts.map((i: any) => i.description),
+      recommendations: wp.recommendations.map((r: any) => ({ target: r.target || "Umum", description: r.description }))
     }))
   }));
 }
@@ -93,14 +93,14 @@ export async function getKKNBySlug(slug: string) {
     description: k.description,
     supervisorName: k.supervisorName || "",
     institution: { name: k.institution.name, logo: k.institution.logo || undefined },
-    members: k.members.map(m => ({ name: m.name, role: m.role || "", faculty: m.faculty || "" })),
-    workPrograms: k.workPrograms.map(wp => ({
+    members: k.members.map((m: any) => ({ name: m.name, role: m.role || "", faculty: m.faculty || "" })),
+    workPrograms: k.workPrograms.map((wp: any) => ({
       id: wp.id,
       title: wp.title,
       description: wp.description,
-      outputs: wp.outputs.map(o => o.description),
-      impacts: wp.impacts.map(i => i.description),
-      recommendations: wp.recommendations.map(r => ({ target: r.target || "Umum", description: r.description }))
+      outputs: wp.outputs.map((o: any) => o.description),
+      impacts: wp.impacts.map((i: any) => i.description),
+      recommendations: wp.recommendations.map((r: any) => ({ target: r.target || "Umum", description: r.description }))
     }))
   };
 }
