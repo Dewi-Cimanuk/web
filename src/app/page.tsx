@@ -2,8 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, Coffee, Home, Activity, BookOpen } from "lucide-react";
+import { getDestinations } from "@/modules/tourism/services/mock";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const destinations = await getDestinations();
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -108,71 +111,39 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Mock Card 1 */}
-            <div className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all border border-slate-100">
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-slate-200 animate-pulse" /> {/* Placeholder fallback */}
-                <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">
-                  Alam
+            {destinations.slice(0, 3).map((dest) => (
+              <div key={dest.id} className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all border border-slate-100 flex flex-col">
+                <div className="relative h-64 overflow-hidden bg-slate-200">
+                  {dest.images?.[0]?.url && (
+                    <Image
+                      src={dest.images[0].url}
+                      alt={dest.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+                  <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                    {dest.category?.name || "Wisata"}
+                  </div>
+                </div>
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{dest.name}</h3>
+                  <p className="text-muted-foreground text-sm line-clamp-2 mb-4 flex-1">
+                    {dest.description}
+                  </p>
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                    <span className="font-semibold text-secondary">
+                      {dest.priceTicket > 0 ? `Rp ${dest.priceTicket.toLocaleString('id-ID')}` : 'Gratis'}
+                    </span>
+                    <Link href={`/wisata/${dest.slug}`}>
+                      <Button variant="outline" size="sm" className="group-hover:bg-primary group-hover:text-white transition-colors">
+                        Lihat Detail
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Curug Eksotis Cimanuk</h3>
-                <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                  Air terjun tersembunyi dengan air sebening kristal dan dikelilingi hutan hijau yang asri.
-                </p>
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  <span className="font-semibold text-secondary">Rp 15.000</span>
-                  <Button variant="outline" size="sm" className="group-hover:bg-primary group-hover:text-white transition-colors">
-                    Lihat Detail
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Mock Card 2 */}
-            <div className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all border border-slate-100">
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-slate-200 animate-pulse" />
-                <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-info">
-                  Edukasi
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Kampoeng Tani</h3>
-                <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                  Rasakan pengalaman bertani langsung bersama masyarakat lokal dan pelajari kearifan agrikultur.
-                </p>
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  <span className="font-semibold text-secondary">Rp 25.000</span>
-                  <Button variant="outline" size="sm" className="group-hover:bg-primary group-hover:text-white transition-colors">
-                    Lihat Detail
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Mock Card 3 */}
-            <div className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all border border-slate-100">
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-slate-200 animate-pulse" />
-                <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-accent">
-                  Budaya
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Sanggar Seni Cimanuk</h3>
-                <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                  Saksikan pertunjukan tari dan musik tradisional khas masyarakat Desa Cimanuk.
-                </p>
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  <span className="font-semibold text-secondary">Gratis</span>
-                  <Button variant="outline" size="sm" className="group-hover:bg-primary group-hover:text-white transition-colors">
-                    Lihat Detail
-                  </Button>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           
           <div className="mt-8 text-center md:hidden">
