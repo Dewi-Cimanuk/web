@@ -92,6 +92,121 @@ async function main() {
     }
   });
 
+  // 4. Culinary
+  await prisma.culinary.upsert({
+    where: { slug: 'nasi-liwet-ibu-cicih' },
+    update: {},
+    create: {
+      name: 'Warung Nasi Liwet Ibu Cicih',
+      slug: 'nasi-liwet-ibu-cicih',
+      description: 'Nikmati sajian khas Sunda dengan menu andalan Nasi Liwet yang disajikan hangat dengan lauk pauk tradisional dan sambal khas Cimanuk.',
+      address: 'Jalan Utama Desa Cimanuk No. 12',
+      openHours: '09:00 - 20:00 WIB',
+      status: 'PUBLISHED',
+      images: { create: [{ url: '/images/hero.png', isPrimary: true }] },
+      menus: {
+        create: [
+          { name: 'Paket Nasi Liwet Komplit', price: 35000 },
+          { name: 'Ayam Bakar Madu', price: 20000 }
+        ]
+      }
+    }
+  });
+
+  // 5. UMKM
+  await prisma.uMKM.upsert({
+    where: { slug: 'kerajinan-bambu-slamet' },
+    update: {},
+    create: {
+      name: 'Kerajinan Bambu Pak Slamet',
+      slug: 'kerajinan-bambu-slamet',
+      description: 'Pengrajin lokal yang menyulap bambu menjadi berbagai kerajinan bernilai seni tinggi.',
+      ownerName: 'Pak Slamet',
+      address: 'Dusun Cimanuk Hilir RT 02',
+      status: 'PUBLISHED',
+      images: { create: [{ url: '/images/hero.png', isPrimary: true }] },
+      products: {
+        create: [
+          { name: 'Lampu Tidur Bambu', price: 75000 },
+          { name: 'Gelas Bambu Set', price: 50000 }
+        ]
+      }
+    }
+  });
+
+  // 6. Accommodation
+  await prisma.accommodation.upsert({
+    where: { slug: 'omah-pak-budi' },
+    update: {},
+    create: {
+      name: 'Omah Pak Budi Homestay',
+      slug: 'omah-pak-budi',
+      description: 'Penginapan nyaman bernuansa pedesaan yang menyatu dengan alam.',
+      address: 'Dusun Krajan RT 01',
+      pricePerNight: 200000,
+      contact: '08123456789',
+      status: 'PUBLISHED',
+      images: { create: [{ url: '/images/hero.png', isPrimary: true }] },
+      facilities: {
+        create: [{ name: 'Kamar Mandi Dalam' }, { name: 'Kipas Angin' }]
+      }
+    }
+  });
+
+  // 7. Article
+  await prisma.article.upsert({
+    where: { slug: '5-alasan-berkunjung-ke-cimanuk' },
+    update: {},
+    create: {
+      title: '5 Alasan Mengapa Anda Harus Berkunjung ke Cimanuk',
+      slug: '5-alasan-berkunjung-ke-cimanuk',
+      excerpt: 'Dari pemandangan alam yang asri hingga kehangatan warga lokal, temukan daya tarik utama desa wisata ini.',
+      content: 'Konten lengkap artikel...',
+      image: '/images/hero.png',
+      authorName: 'Tim KKN Tematik',
+      status: 'PUBLISHED'
+    }
+  });
+
+  // 8. Event
+  await prisma.event.upsert({
+    where: { slug: 'festival-budaya-cimanuk-2026' },
+    update: {},
+    create: {
+      title: 'Festival Budaya Cimanuk 2026',
+      slug: 'festival-budaya-cimanuk-2026',
+      description: 'Perayaan tahunan seni dan budaya yang menampilkan tarian tradisional, pameran produk UMKM lokal, dan kuliner khas desa.',
+      startDate: new Date('2026-10-15T08:00:00Z'),
+      endDate: new Date('2026-10-17T22:00:00Z'),
+      location: 'Alun-alun Desa Cimanuk',
+      image: '/images/hero.png',
+      status: 'PUBLISHED'
+    }
+  });
+
+  // 9. Activity
+  await prisma.activity.upsert({
+    where: { slug: 'paket-edukasi-tani' },
+    update: {},
+    create: {
+      name: 'Paket Edukasi Tani Cimanuk',
+      slug: 'paket-edukasi-tani',
+      description: 'Kegiatan sehari penuh belajar bertani bersama warga lokal, mulai dari membajak sawah, menanam padi, hingga panen.',
+      price: 50000,
+      duration: '4 - 5 Jam',
+      status: 'PUBLISHED'
+    }
+  });
+
+  // 10. Gallery
+  await prisma.gallery.create({
+    data: {
+      url: '/images/hero.png',
+      caption: 'Pemandangan pagi hari di Bukit Panorama Cimanuk',
+      status: 'PUBLISHED'
+    }
+  });
+
   console.log('Seeding finished!');
 }
 
