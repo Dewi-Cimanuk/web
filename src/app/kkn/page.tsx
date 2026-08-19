@@ -42,7 +42,7 @@ export default async function KKNPage({ searchParams }: { searchParams: Promise<
       <section className="py-12 flex-1">
         <div className="container mx-auto max-w-5xl px-4">
           <div className="grid grid-cols-1 gap-6">
-            {kknList.map((kkn) => (
+            {kknList.map((kkn: any) => (
               <Link href={`/kkn/${kkn.slug}`} key={kkn.id} className="group bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-all border border-slate-200 flex flex-col md:flex-row gap-6 items-start">
                 
                 <div className="flex-1 space-y-4">
