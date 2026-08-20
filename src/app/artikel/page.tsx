@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getArticleList } from "@/modules/article/services/mock";
 import { BookOpen, User, Calendar as CalendarIcon, ChevronRight } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "Artikel & Panduan | DEWI Cimanuk",
 };

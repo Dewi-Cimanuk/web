@@ -3,6 +3,8 @@ import { getEventList } from "@/modules/event/services/mock";
 import { Calendar, MapPin, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "Event & Agenda | DEWI Cimanuk",
 };

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getKKNList } from "@/modules/kkn/services/mock";
 import { GraduationCap, Search, Users, Calendar, MapPin, ChevronRight, Building2 } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "Histori KKN | DEWI Cimanuk",
 };

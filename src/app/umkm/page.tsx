@@ -4,6 +4,8 @@ import { getUMKMList } from "@/modules/umkm/services/mock";
 import { Search, Store, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "Produk UMKM | DEWI Cimanuk",
   description: "Dukung ekonomi lokal dengan membeli produk UMKM Cimanuk.",

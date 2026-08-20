@@ -7,6 +7,8 @@ import { getUMKMList } from "@/modules/umkm/services/mock";
 import { getEventList } from "@/modules/event/services/mock";
 import { getArticleList } from "@/modules/article/services/mock";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const destinations = await getDestinations();
   const umkms = await getUMKMList();
