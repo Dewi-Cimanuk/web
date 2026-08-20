@@ -40,18 +40,7 @@ export function Navbar() {
         </div>
       </div>
       
-      {/* Sub Menu (Classic vibe) */}
-      <div className="bg-white border-b hidden md:block">
-        <div className="container mx-auto max-w-6xl px-4 py-2 flex justify-center gap-6 text-sm font-medium text-primary">
-          <Link href="/event" className="hover:text-secondary transition-colors">Event Desa</Link>
-          <span className="text-primary/30">•</span>
-          <Link href="/umkm" className="hover:text-secondary transition-colors">UMKM Lokal</Link>
-          <span className="text-primary/30">•</span>
-          <Link href="/aktivitas" className="hover:text-secondary transition-colors">Aktivitas</Link>
-          <span className="text-primary/30">•</span>
-          <Link href="/artikel" className="hover:text-secondary transition-colors">Panduan Wisata</Link>
-        </div>
-      </div>
+
     </header>
   );
 }
