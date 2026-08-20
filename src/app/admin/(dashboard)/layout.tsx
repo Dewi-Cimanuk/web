@@ -13,7 +13,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const menuItems = [
     { icon: LayoutDashboard, label: "Overview", href: "/admin" },
     { icon: Map, label: "Destinasi Wisata", href: "/admin/wisata" },
-    { icon: Store, label: "Ekonomi Lokal", href: "/admin/ekonomi" },
+    { icon: Store, label: "UMKM Lokal", href: "/admin/ekonomi" },
+    { icon: Store, label: "Kuliner", href: "/admin/kuliner" },
+    { icon: Store, label: "Homestay", href: "/admin/homestay" },
+    { icon: Map, label: "Aktivitas", href: "/admin/aktivitas" },
+    { icon: Map, label: "Galeri", href: "/admin/galeri" },
     { icon: GraduationCap, label: "Data KKN", href: "/admin/kkn" },
     { icon: Calendar, label: "Event & Agenda", href: "/admin/event" },
     { icon: BookOpen, label: "Artikel & Berita", href: "/admin/artikel" },
@@ -71,6 +75,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="p-6 flex-1">
           {children}
         </div>
+        
+        {/* Admin Footer */}
+        <footer className="py-4 px-6 border-t border-slate-200 bg-white text-center sm:text-left shrink-0">
+          <p className="text-xs text-slate-500">
+            &copy; {new Date().getFullYear()} Desa Wisata Cimanuk. All rights reserved.
+          </p>
+        </footer>
       </main>
     </div>
   );

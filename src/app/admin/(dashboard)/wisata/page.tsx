@@ -1,7 +1,8 @@
 import { Plus, Search, Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import Link from "next/link";
 import { getDestinations } from "@/modules/tourism/services/mock";
-
 export const metadata = {
   title: "Kelola Wisata | Admin DEWI",
 };
@@ -16,9 +17,11 @@ export default async function AdminWisataPage() {
           <h2 className="text-2xl font-bold text-slate-800">Manajemen Destinasi Wisata</h2>
           <p className="text-slate-500 text-sm">Tambah, ubah, atau hapus data pariwisata desa.</p>
         </div>
-        <Button className="bg-primary hover:bg-primary/90 text-white rounded-xl flex items-center gap-2">
-          <Plus className="w-4 h-4" /> Tambah Destinasi
-        </Button>
+        <Link href="/admin/wisata/create">
+          <Button className="bg-primary hover:bg-primary/90 text-white rounded-xl flex items-center gap-2">
+            <Plus className="w-4 h-4" /> Tambah Destinasi
+          </Button>
+        </Link>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col">
@@ -63,12 +66,20 @@ export default async function AdminWisataPage() {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg text-blue-600 border-blue-200 hover:bg-blue-50">
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg text-red-600 border-red-200 hover:bg-red-50">
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                      <Link href={`/admin/wisata/${dest.id}/edit`}>
+                        <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg text-blue-600 border-blue-200 hover:bg-blue-50">
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                      </Link>
+                      <form action={async () => {
+                        "use server";
+                        const { deleteDestination } = await import("@/modules/tourism/services/actions");
+                        await deleteDestination(dest.id);
+                      }}>
+                        <SubmitButton variant="outline" size="icon" className="h-8 w-8 rounded-lg text-red-600 border-red-200 hover:bg-red-50">
+                          <Trash2 className="w-4 h-4" />
+                        </SubmitButton>
+                      </form>
                     </div>
                   </td>
                 </tr>

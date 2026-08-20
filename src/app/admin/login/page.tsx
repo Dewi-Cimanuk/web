@@ -21,6 +21,10 @@ export default function AdminLoginPage() {
           </p>
         </div>
       </div>
+      
+      <div className="absolute bottom-6 text-center w-full text-xs text-slate-500">
+        © {new Date().getFullYear()} Desa Wisata Cimanuk. All rights reserved.
+      </div>
     </div>
   );
 }
